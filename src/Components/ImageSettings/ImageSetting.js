@@ -35,8 +35,8 @@ class ImageSetting extends Component {
   render() {
     return (
       <>
-        <Container className="col">
-          <Content className="d-flex align-items-center flex-column justify-content-evenly bg-light">
+        <Container className="col-md-6">
+          <Content className="d-flex align-items-center flex-column justify-content-evenly bg-light rounded">
             <Filters className="w-75">
               <Parag>filter name</Parag>
               <FilterRangeWrapper>
