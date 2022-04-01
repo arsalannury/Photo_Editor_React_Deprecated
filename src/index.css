@@ -1,0 +1,10 @@
+@font-face {
+    font-family: font;
+    src: url('./font//PTSansCaption-Regular.ttf');
+}
+
+#root {
+    /* overflow-x: hidden; */
+    font-family: font;
+    font-size: 16px;
+}
