@@ -3,10 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div``;
 export const Content = styled.div`
 padding: 70px 0;
-margin-left: 20px;
-@media screen and (max-width: 500px){
-    margin-left: 0;
-}
+width: 50%;
 `;
 export const Filters = styled.div`
   padding: 20px;
