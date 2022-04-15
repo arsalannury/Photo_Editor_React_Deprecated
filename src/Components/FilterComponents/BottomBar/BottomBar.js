@@ -22,8 +22,8 @@ class BottomBar extends Component {
     return (
       <>
         <Wrapper
-          style={{ transform: this.props.transformState }}
-          className="bg-light shadow-sm d-flex align-items-center justify-content-between overflow-auto"
+          className="bg-light shadow-sm d-flex align-items-center justify-content-between"
+          style={{overflowX: this.props.overflowShow}}
         >
           {this.props.filterValues.map((item, index) => (
             <Filters text={item.title} filter={item.filter} key={index} />
@@ -37,7 +37,7 @@ class BottomBar extends Component {
 const mapStateToProps = (state) => {
   return {
     filterValues: state.FilterValuesCombine.filtersValueSlice,
-    transformState: state.UiReducersCombine.UiReducers.transform,
+    overflowShow: state.UiReducersCombine.UiReducers.overflowFilterSection
   };
 };
 const dispatchToProps = (dispatch) => {

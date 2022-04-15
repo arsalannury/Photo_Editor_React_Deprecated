@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { connect } from "react-redux";
-import { filterShow } from "../../Redux/Reducers/UiReducers";
+import { filterShow, overflowShow } from "../../Redux/Reducers/UiReducers";
 import {
   Wrapper,
   HeaderContent,
@@ -44,7 +44,10 @@ const mapStateToProps = (state) => {
 
 const dispatchToProps = (dispatch) => {
   return {
-    showFilterSection: () => dispatch(filterShow()),
+    showFilterSection: () => {
+      dispatch(filterShow());
+      dispatch(overflowShow());
+    },
   };
 };
 
