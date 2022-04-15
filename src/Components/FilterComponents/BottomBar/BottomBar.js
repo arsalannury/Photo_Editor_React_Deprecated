@@ -2,21 +2,18 @@ import axios from "axios";
 import { Component } from "react";
 import Filters from "../Filters/Filters";
 import { Wrapper } from "./BottomBarStyle";
+import { connect } from "react-redux";
+import { ApiCallStart } from "../../../Redux/Actions/Actions";
+import { dataRecived } from "../../../Redux/Reducers/GetFiltersValue";
 
 class BottomBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      filtersValue: [],
-    };
-  }
 
   async componentDidMount() {
     const data = await axios.get(
       "https://react-photo-editor-dd3e0-default-rtdb.firebaseio.com/filters.json"
     );
     try {
-      this.setState({ filtersValue: data.data });
+      this.props.dataSetToState(data.data);
     } catch (error) {
       console.log(error);
     }
@@ -26,8 +23,8 @@ class BottomBar extends Component {
     return (
       <>
         <Wrapper className="bg-light shadow-sm d-flex align-items-center justify-content-around overflow-auto">
-          {this.state.filtersValue.map((item, index) => (
-            <Filters text={item.title} filter={item.filter} />
+          {this.props.filterValues.map((item, index) => (
+            <Filters text={item.title} filter={item.filter} key={index} />
           ))}
         </Wrapper>
       </>
@@ -35,4 +32,16 @@ class BottomBar extends Component {
   }
 }
 
-export default BottomBar;
+const mapStateToProps = (state) => {
+  return {
+    filterValues: state.FilterValuesCombine.filtersValueSlice,
+  };
+};
+const dispatchToProps = (dispatch) => {
+  return {
+    startCallApi: () => dispatch(ApiCallStart()),
+    dataSetToState: (payload) => dispatch(dataRecived(payload)),
+  };
+};
+
+export default connect(mapStateToProps, dispatchToProps)(BottomBar);

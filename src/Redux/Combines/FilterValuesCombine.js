@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import GetFiltersValue from "../Reducers/GetFiltersValue";
+import filtersValueSlice from "../Reducers/GetFiltersValue";
 
 export default combineReducers({
-    GetFiltersValue
+    filtersValueSlice
 })
