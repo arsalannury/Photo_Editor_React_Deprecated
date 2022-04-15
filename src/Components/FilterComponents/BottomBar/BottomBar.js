@@ -7,7 +7,6 @@ import { ApiCallStart } from "../../../Redux/Actions/Actions";
 import { dataRecived } from "../../../Redux/Reducers/GetFiltersValue";
 
 class BottomBar extends Component {
-
   async componentDidMount() {
     const data = await axios.get(
       "https://react-photo-editor-dd3e0-default-rtdb.firebaseio.com/filters.json"
@@ -22,7 +21,10 @@ class BottomBar extends Component {
   render() {
     return (
       <>
-        <Wrapper className="bg-light shadow-sm d-flex align-items-center justify-content-around overflow-auto">
+        <Wrapper
+          style={{ transform: this.props.transformState }}
+          className="bg-light shadow-sm d-flex align-items-center justify-content-between overflow-auto"
+        >
           {this.props.filterValues.map((item, index) => (
             <Filters text={item.title} filter={item.filter} key={index} />
           ))}
@@ -35,6 +37,7 @@ class BottomBar extends Component {
 const mapStateToProps = (state) => {
   return {
     filterValues: state.FilterValuesCombine.filtersValueSlice,
+    transformState: state.UiReducersCombine.UiReducers.transform,
   };
 };
 const dispatchToProps = (dispatch) => {
