@@ -31,7 +31,6 @@ import {
 } from "./ImageSettingStyle";
 
 class ImageSetting extends Component {
-  state = {};
   render() {
     return (
       <>

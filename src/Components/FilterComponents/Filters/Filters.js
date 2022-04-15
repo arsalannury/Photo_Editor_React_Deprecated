@@ -7,7 +7,7 @@ class Filters extends Component {
         return (
             <>
             <Wrapper>
-                <ExampleImg style={{filter:filter}} className='h-100 w100' src='fe.png' alt='example_img' />
+                <ExampleImg style={{filter : filter}} className='h-100 w100' src='fe.png' alt='example_img' />
                 {text}
             </Wrapper>
             </>
