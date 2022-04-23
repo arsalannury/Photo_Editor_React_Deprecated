@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { connect } from "react-redux";
 import { filterShow, overflowShow } from "../../Redux/Reducers/UiReducers";
-// import { setImage } from "../../Redux/Reducers/ImageReducer";
+import { setImage } from "../../Redux/Reducers/ImageReducer";
 import axios from "axios";
 import {
   Wrapper,
@@ -13,13 +13,14 @@ import {
 } from "./HeaderStyle";
 
 class Header extends Component {
+ 
 
   imageChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {
         const base64String = reader.result;
-        // this.props.image(base64String)
+        this.props.image(base64String)
         const postToDatabase = async () => {
           const data = {
             image : base64String
@@ -65,7 +66,7 @@ class Header extends Component {
 const mapStateToProps = (state) => {
   return {
     transform: state.UiReducersCombine.UiReducers.transform,
-    setImage: state.UiReducersCombine.ImageReducer.currentImage
+    // setImage: state.UiReducersCombine.ImageReducer.currentImage
   };
 };
 
@@ -75,8 +76,8 @@ const dispatchToProps = (dispatch) => {
       dispatch(filterShow());
       dispatch(overflowShow());
     },
-    // image: (payload) => dispatch(setImage(payload))
+    image: (payload) => dispatch(setImage(payload))
   };
 };
 
-export default connect(mapStateToProps, dispatchToProps)(Header);
+export default connect(mapStateToProps , dispatchToProps)(Header);

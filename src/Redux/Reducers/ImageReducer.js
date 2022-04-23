@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const imageStates = {
-    currentImage : 'src',
+    currentImage : '',
     isChange : false
 }
 
