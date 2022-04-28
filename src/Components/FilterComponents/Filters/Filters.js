@@ -8,7 +8,7 @@ class Filters extends Component {
         return (
             <>
             <Wrapper style={{ transform: this.props.transformState }}>
-                <ExampleImg style={{filter : filter}} className='h-100 w100' src='fe.png' alt='example_img' />
+                <ExampleImg style={{filter : filter}} className='h-100 w100' src={this.props.setImage} alt='example_img' />
                 {text}
             </Wrapper>
             </>
@@ -19,6 +19,7 @@ class Filters extends Component {
 const mapStateToProps = (state) => {
     return {
         transformState: state.UiReducersCombine.UiReducers.transform,
+        setImage: state.UiReducersCombine.ImageReducer.currentImage
     }
 }
 

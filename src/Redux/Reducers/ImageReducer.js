@@ -13,7 +13,7 @@ const imageSlice = createSlice({
         setImage : (state,action) => {
             return {
                 ...state,
-                currentImage : state.currentImage = action.payload
+                currentImage :  action.payload
             }
         },
         imageChanged : (state,action) => {
