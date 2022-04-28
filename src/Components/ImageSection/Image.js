@@ -20,6 +20,7 @@ class Image extends Component {
               <>
                 <div className="d-flex align-items-center flex-column">
                   <Empty>Choose an image</Empty>
+                  <Empty>or wait for load image</Empty>
                   <LoadingImage></LoadingImage>
                 </div>
               </>

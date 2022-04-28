@@ -9,8 +9,7 @@ transition: all .5s ease;
 font-size: .7em;
 color: #444;
 border-radius: 2px;
-cursor: pointer;
 `;
 export const ExampleImg = styled.img`
-
+cursor: pointer;
 `;

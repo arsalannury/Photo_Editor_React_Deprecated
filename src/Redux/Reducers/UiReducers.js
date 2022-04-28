@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const states = {
     transform : 'translateY(400px)',
-    overflowFilterSection : 'auto',
+    overflowFilterSection : 'hidden',
     isFetch : false
 }
 
@@ -20,7 +20,7 @@ const UiReducersSlice = createSlice({
        overflowShow : (state,action) => {
            return {
                ...state,
-               overflowFilterSection : state.overflowFilterSection === 'auto' ? 'hidden' : 'auto'
+               overflowFilterSection : state.overflowFilterSection === 'hidden' ? 'auto' : 'hidden'
            }
        },
        showLoading : (state,action) => {
