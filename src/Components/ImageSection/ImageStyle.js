@@ -39,3 +39,4 @@ display: inline-block;
 
 export const Empty = styled.p`
 `
+export const Wait = styled.p``

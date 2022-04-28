@@ -4,6 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const states = {
     transform : 'translateY(400px)',
     overflowFilterSection : 'auto',
+    isFetch : false
 }
 
 const UiReducersSlice = createSlice({
@@ -21,9 +22,15 @@ const UiReducersSlice = createSlice({
                ...state,
                overflowFilterSection : state.overflowFilterSection === 'auto' ? 'hidden' : 'auto'
            }
+       },
+       showLoading : (state,action) => {
+           return {
+               ...state,
+               isFetch : action.payload
+           }
        }
     }
 })
 
 export default UiReducersSlice.reducer;
-export const {filterShow,overflowShow} = UiReducersSlice.actions;
+export const {filterShow,overflowShow,showLoading} = UiReducersSlice.actions;

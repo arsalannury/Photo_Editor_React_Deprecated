@@ -1,6 +1,6 @@
-import { Component } from "react";
+import { PureComponent } from "react";
 import { connect } from "react-redux";
-import { filterShow, overflowShow } from "../../Redux/Reducers/UiReducers";
+import { filterShow, overflowShow, showLoading } from "../../Redux/Reducers/UiReducers";
 import { setImage } from "../../Redux/Reducers/ImageReducer";
 import axios from "axios";
 import {
@@ -13,7 +13,9 @@ import {
 } from "./HeaderStyle";
 import Swal from "sweetalert2";
 
-class Header extends Component {
+class Header extends PureComponent {
+
+
   componentDidMount() {
     if (localStorage.getItem("imageDatabaseName"))
       this.getImage(localStorage.getItem("imageDatabaseName"));
@@ -25,16 +27,18 @@ class Header extends Component {
         "https://react-photo-editor-dd3e0-default-rtdb.firebaseio.com/Image.json"
       );
       this.props.image(result.data[name].image);
-      console.log(result.data);
-    } catch (error) {}
+      this.props.loading(false);
+    } catch (error) {
+      throw new Error(error)
+    }
   };
 
   imageChange = (e) => {
+    this.props.loading(true);
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64String = reader.result;
-      // this.props.image(base64String);
       const postToDatabase = async () => {
         const data = {
           image: base64String,
@@ -50,7 +54,8 @@ class Header extends Component {
             result.data.name
           );
         } catch (error) {
-          console.log(error);
+          this.props.loading(true);
+          throw new Error(error)
         }
       };
       postToDatabase();
@@ -132,6 +137,7 @@ const dispatchToProps = (dispatch) => {
       dispatch(overflowShow());
     },
     image: (payload) => dispatch(setImage(payload)),
+    loading: (payload) => dispatch(showLoading(payload))
   };
 };
 

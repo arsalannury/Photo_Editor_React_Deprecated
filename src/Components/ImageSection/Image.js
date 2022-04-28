@@ -5,6 +5,7 @@ import {
   CurrentImage,
   LoadingImage,
   Empty,
+  Wait,
 } from "./ImageStyle";
 import { connect } from "react-redux";
 import { setImage } from "../../Redux/Reducers/ImageReducer";
@@ -22,8 +23,15 @@ class Image extends Component {
                   <LoadingImage></LoadingImage>
                 </div>
               </>
-            ) : (
+            ) : !this.props.showLoading ? (
               <CurrentImage src={this.props.setImage} alt="edit-picture" />
+            ) : (
+              <>
+                <div className="d-flex align-items-center flex-column">
+                  <Wait>wait for loading image...</Wait>
+                  <LoadingImage></LoadingImage>
+                </div>
+              </>
             )}
           </ImageWrapper>
         </Container>
@@ -35,6 +43,7 @@ class Image extends Component {
 const mapStateToProps = (state) => {
   return {
     setImage: state.UiReducersCombine.ImageReducer.currentImage,
+    showLoading: state.UiReducersCombine.UiReducers.isFetch,
   };
 };
 
