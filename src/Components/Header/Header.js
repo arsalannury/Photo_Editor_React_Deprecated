@@ -14,14 +14,22 @@ import {
 import Swal from "sweetalert2";
 
 class Header extends Component {
-  showNotifForImageEmpty = () => {};
+ getImage = async (name) => {
+      try {
+        const result = await axios.get("https://react-photo-editor-dd3e0-default-rtdb.firebaseio.com/Image.json")
+        this.props.image(result.data[name].image);
+        console.log(result.data[name])
+      } catch (error) {
+        
+      }    
+  }
 
   imageChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64String = reader.result;
-      this.props.image(base64String);
+      // this.props.image(base64String);
       const postToDatabase = async () => {
         const data = {
           image: base64String,
@@ -31,7 +39,8 @@ class Header extends Component {
           data
         );
         try {
-          console.log(result);
+          console.log(result.data.name);
+           this.getImage(result.data.name)
         } catch (error) {
           console.log(error);
         }
