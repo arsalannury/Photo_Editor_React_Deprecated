@@ -14,15 +14,20 @@ import {
 import Swal from "sweetalert2";
 
 class Header extends Component {
- getImage = async (name) => {
-      try {
-        const result = await axios.get("https://react-photo-editor-dd3e0-default-rtdb.firebaseio.com/Image.json")
-        this.props.image(result.data[name].image);
-        console.log(result.data[name])
-      } catch (error) {
-        
-      }    
+  componentDidMount() {
+    if (localStorage.getItem("imageDatabaseName"))
+      this.getImage(localStorage.getItem("imageDatabaseName"));
   }
+
+  getImage = async (name) => {
+    try {
+      const result = await axios.get(
+        "https://react-photo-editor-dd3e0-default-rtdb.firebaseio.com/Image.json"
+      );
+      this.props.image(result.data[name].image);
+      console.log(result.data);
+    } catch (error) {}
+  };
 
   imageChange = (e) => {
     const file = e.target.files[0];
@@ -39,8 +44,11 @@ class Header extends Component {
           data
         );
         try {
-          console.log(result.data.name);
-           this.getImage(result.data.name)
+          this.getImage(result.data.name);
+          const toLocal = localStorage.setItem(
+            "imageDatabaseName",
+            result.data.name
+          );
         } catch (error) {
           console.log(error);
         }
