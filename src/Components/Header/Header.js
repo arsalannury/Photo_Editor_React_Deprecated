@@ -1,6 +1,10 @@
 import { PureComponent } from "react";
 import { connect } from "react-redux";
-import { filterShow, overflowShow, showLoading } from "../../Redux/Reducers/UiReducers";
+import {
+  filterShow,
+  overflowShow,
+  showLoading,
+} from "../../Redux/Reducers/UiReducers";
 import { setImage } from "../../Redux/Reducers/ImageReducer";
 import axios from "axios";
 import {
@@ -14,7 +18,48 @@ import {
 import Swal from "sweetalert2";
 
 class Header extends PureComponent {
+  ifImageWasEmptyMessage = () => {
+    let timerInterval;
+    Swal.fire({
+      title: "Choose an image!",
+      html: "I will close in <b></b> milliseconds.",
+      timer: 2000,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading();
+        const b = Swal.getHtmlContainer().querySelector("b");
+        timerInterval = setInterval(() => {
+          b.textContent = Swal.getTimerLeft();
+        }, 100);
+      },
+      willClose: () => {
+        clearInterval(timerInterval);
+      },
+    }).then((result) => {
+      if (result.dismiss === Swal.DismissReason.timer) {
+        return null;
+      }
+    });
+  };
 
+  handleSwalAddMessage = () => {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
+
+    Toast.fire({
+      icon: "success",
+      title: "Added successfully",
+    });
+  };
 
   componentDidMount() {
     if (localStorage.getItem("imageDatabaseName"))
@@ -28,9 +73,9 @@ class Header extends PureComponent {
       );
       this.props.image(result.data[name].image);
       this.props.loading(false);
-      // console.log(result)
+      this.handleSwalAddMessage();
     } catch (error) {
-      throw new Error(error)
+      throw new Error(error);
     }
   };
 
@@ -43,7 +88,7 @@ class Header extends PureComponent {
       const postToDatabase = async () => {
         const data = {
           image: base64String,
-          id: Math.floor(Math.random() * 100000)
+          id: Math.floor(Math.random() * 100000),
         };
         const result = await axios.post(
           "https://react-photo-editor-dd3e0-default-rtdb.firebaseio.com/Image.json",
@@ -58,7 +103,7 @@ class Header extends PureComponent {
           );
         } catch (error) {
           this.props.loading(true);
-          throw new Error(error)
+          throw new Error(error);
         }
       };
       postToDatabase();
@@ -68,27 +113,7 @@ class Header extends PureComponent {
 
   ifImageWasEmpty = () => {
     if (this.props.setImage === "") {
-      let timerInterval;
-      Swal.fire({
-        title: "Choose an image!",
-        html: "I will close in <b></b> milliseconds.",
-        timer: 2000,
-        timerProgressBar: true,
-        didOpen: () => {
-          Swal.showLoading();
-          const b = Swal.getHtmlContainer().querySelector("b");
-          timerInterval = setInterval(() => {
-            b.textContent = Swal.getTimerLeft();
-          }, 100);
-        },
-        willClose: () => {
-          clearInterval(timerInterval);
-        },
-      }).then((result) => {
-        if (result.dismiss === Swal.DismissReason.timer) {
-          return null;
-        }
-      });
+      this.ifImageWasEmptyMessage();
       return;
     }
     this.props.showFilterSection();
@@ -140,7 +165,7 @@ const dispatchToProps = (dispatch) => {
       dispatch(overflowShow());
     },
     image: (payload) => dispatch(setImage(payload)),
-    loading: (payload) => dispatch(showLoading(payload))
+    loading: (payload) => dispatch(showLoading(payload)),
   };
 };
 

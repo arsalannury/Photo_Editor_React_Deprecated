@@ -28,9 +28,15 @@ const UiReducersSlice = createSlice({
                ...state,
                isFetch : action.payload
            }
+       },
+       hideFilterSection : (state,action) => {
+           return {
+               ...state,
+               transform : 'translateY(400px)'
+           }
        }
     }
 })
 
 export default UiReducersSlice.reducer;
-export const {filterShow,overflowShow,showLoading} = UiReducersSlice.actions;
+export const {filterShow,overflowShow,showLoading,hideFilterSection} = UiReducersSlice.actions;

@@ -10,10 +10,31 @@ import {
 } from "./ImageStyle";
 import { connect } from "react-redux";
 import { setImage } from "../../Redux/Reducers/ImageReducer";
-import {showLoading,filterShow} from '../../Redux/Reducers/UiReducers';
+import {showLoading,hideFilterSection} from '../../Redux/Reducers/UiReducers';
 import axios from "axios";
+import Swal from "sweetalert2";
 
 class Image extends Component {
+
+
+  handleSwalMessage = () => {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+    
+    Toast.fire({
+      icon: 'info',
+      title: 'Deleted is successfully'
+    })
+  }
 
    handleDeletePhoto = async () => {
      const data = localStorage.getItem("imageDatabaseName")
@@ -23,7 +44,7 @@ class Image extends Component {
         this.props.loading();
         this.props.filterDisplay();
         localStorage.removeItem("imageDatabaseName")
-        console.log(response);
+        this.handleSwalMessage();
      } catch (error) {
        console.log(error);
      }
@@ -74,8 +95,8 @@ const mapStateToProps = (state) => {
 const mapDispatchStateToProps = (dispatch) => {
    return {
      setImageHandler : () => {dispatch(setImage(''))},
-     loading: () => {dispatch(showLoading(false))},
-     filterDisplay: () => {dispatch(filterShow())}
+     loading: () => {dispatch(showLoading(true))},
+     filterDisplay: () => {dispatch(hideFilterSection())}
    }
 }
 
