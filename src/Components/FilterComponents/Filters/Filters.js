@@ -1,10 +1,11 @@
 import { Component } from "react";
 import { ExampleImg, Wrapper } from "./FiltersStyle";
 import { connect } from "react-redux";
+import { setFilter } from "../../../Redux/Reducers/FiltersReducer";
 
 class Filters extends Component {
   render() {
-    const { text, filter } = this.props;
+    const { text, filter, setFilterToImage } = this.props;
     return (
       <>
         <Wrapper style={{ transform: this.props.transformState }}>
@@ -15,6 +16,7 @@ class Filters extends Component {
                 className="h-100 w100"
                 src={this.props.setImage}
                 alt="example_img"
+                onClick={()=> {setFilterToImage(filter)}}
               />
               {text}
             </>
@@ -34,5 +36,10 @@ const mapStateToProps = (state) => {
     showLoading: state.UiReducersCombine.UiReducers.isFetch,
   };
 };
+const mapDispatchStateToProps = (dispatch) => {
+  return {
+    setFilterToImage : (payload) => dispatch(setFilter(payload))
+  }
+};
 
-export default connect(mapStateToProps)(Filters);
+export default connect(mapStateToProps,mapDispatchStateToProps)(Filters);

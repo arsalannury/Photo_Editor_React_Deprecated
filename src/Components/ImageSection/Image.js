@@ -6,49 +6,52 @@ import {
   LoadingImage,
   Empty,
   Wait,
-  Div
+  Div,
 } from "./ImageStyle";
 import { connect } from "react-redux";
 import { setImage } from "../../Redux/Reducers/ImageReducer";
-import {showLoading,hideFilterSection} from '../../Redux/Reducers/UiReducers';
+import {
+  showLoading,
+  hideFilterSection,
+} from "../../Redux/Reducers/UiReducers";
 import axios from "axios";
 import Swal from "sweetalert2";
 
 class Image extends Component {
-
-
   handleSwalMessage = () => {
     const Toast = Swal.mixin({
       toast: true,
-      position: 'top-end',
+      position: "top-end",
       showConfirmButton: false,
       timer: 3000,
       timerProgressBar: true,
       didOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-      }
-    })
-    
-    Toast.fire({
-      icon: 'info',
-      title: 'Deleted is successfully'
-    })
-  }
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
 
-   handleDeletePhoto = async () => {
-     const data = localStorage.getItem("imageDatabaseName")
-     try {
-        const response = await axios.delete(`https://react-photo-editor-dd3e0-default-rtdb.firebaseio.com/Image/${data}.json`);
-        this.props.setImageHandler();
-        this.props.loading();
-        this.props.filterDisplay();
-        localStorage.removeItem("imageDatabaseName")
-        this.handleSwalMessage();
-     } catch (error) {
-       console.log(error);
-     }
-   }
+    Toast.fire({
+      icon: "info",
+      title: "Deleted is successfully",
+    });
+  };
+
+  handleDeletePhoto = async () => {
+    const data = localStorage.getItem("imageDatabaseName");
+    try {
+      const response = await axios.delete(
+        `https://react-photo-editor-dd3e0-default-rtdb.firebaseio.com/Image/${data}.json`
+      );
+      this.props.setImageHandler();
+      this.props.loading();
+      this.props.filterDisplay();
+      localStorage.removeItem("imageDatabaseName");
+      this.handleSwalMessage();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   render() {
     return (
@@ -65,10 +68,18 @@ class Image extends Component {
               </>
             ) : !this.props.showLoading ? (
               <>
-              <Div>
-                <i onClick={this.handleDeletePhoto} class="bi bi-x-circle" style={{fontSize:'25px'}}></i>
-              </Div>
-              <CurrentImage src={this.props.setImage} alt="edit-picture" />
+                <Div>
+                  <i
+                    onClick={this.handleDeletePhoto}
+                    class="bi bi-x-circle"
+                    style={{ fontSize: "25px" }}
+                  ></i>
+                </Div>
+                <CurrentImage
+                  style={{ filter: this.props.imageFilter }}
+                  src={this.props.setImage}
+                  alt="edit-picture"
+                />
               </>
             ) : (
               <>
@@ -89,15 +100,22 @@ const mapStateToProps = (state) => {
   return {
     setImage: state.UiReducersCombine.ImageReducer.currentImage,
     showLoading: state.UiReducersCombine.UiReducers.isFetch,
+    imageFilter: state.FiltersCombine.FiltersReducer.filter,
   };
 };
 
 const mapDispatchStateToProps = (dispatch) => {
-   return {
-     setImageHandler : () => {dispatch(setImage(''))},
-     loading: () => {dispatch(showLoading(true))},
-     filterDisplay: () => {dispatch(hideFilterSection())}
-   }
-}
+  return {
+    setImageHandler: () => {
+      dispatch(setImage(""));
+    },
+    loading: () => {
+      dispatch(showLoading(true));
+    },
+    filterDisplay: () => {
+      dispatch(hideFilterSection());
+    },
+  };
+};
 
-export default connect(mapStateToProps,mapDispatchStateToProps)(Image);
+export default connect(mapStateToProps, mapDispatchStateToProps)(Image);
