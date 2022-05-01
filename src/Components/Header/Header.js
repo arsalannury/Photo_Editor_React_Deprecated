@@ -28,6 +28,7 @@ class Header extends PureComponent {
       );
       this.props.image(result.data[name].image);
       this.props.loading(false);
+      // console.log(result)
     } catch (error) {
       throw new Error(error)
     }
@@ -42,12 +43,14 @@ class Header extends PureComponent {
       const postToDatabase = async () => {
         const data = {
           image: base64String,
+          id: Math.floor(Math.random() * 100000)
         };
         const result = await axios.post(
           "https://react-photo-editor-dd3e0-default-rtdb.firebaseio.com/Image.json",
           data
         );
         try {
+          // console.log(result)
           this.getImage(result.data.name);
           const toLocal = localStorage.setItem(
             "imageDatabaseName",
@@ -83,7 +86,7 @@ class Header extends PureComponent {
         },
       }).then((result) => {
         if (result.dismiss === Swal.DismissReason.timer) {
-          console.log("I was closed by the timer");
+          return null;
         }
       });
       return;

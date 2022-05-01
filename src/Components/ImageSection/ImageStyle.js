@@ -40,3 +40,10 @@ display: inline-block;
 export const Empty = styled.p`
 `
 export const Wait = styled.p``
+
+export const Div = styled.div`
+position:absolute;
+top:10px;
+left:10px;
+cursor:pointer;
+`
