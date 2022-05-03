@@ -32,7 +32,8 @@ const UiReducersSlice = createSlice({
        hideFilterSection : (state,action) => {
            return {
                ...state,
-               transform : 'translateY(400px)'
+               transform : 'translateY(400px)',
+               overflowFilterSection: 'hidden'
            }
        }
     }

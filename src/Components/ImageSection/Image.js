@@ -53,15 +53,15 @@ class Image extends Component {
     }
   };
 
-  componentDidUpdate() {
-    console.log(
-      this.props.filterTitle +
-        "(" +
-        this.props.rangeInp +
-        this.props.filterModel +
-        ")"
-    );
-  }
+  // componentDidUpdate() {
+  //   console.log(
+  //     this.props.filterTitle +
+  //       "(" +
+  //       this.props.rangeInp +
+  //       this.props.filterModel +
+  //       ")"
+  //   );
+  // }
 
   render() {
     return (

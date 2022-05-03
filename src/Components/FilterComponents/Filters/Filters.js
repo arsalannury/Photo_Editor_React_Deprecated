@@ -16,7 +16,6 @@ class Filters extends Component {
     this.props.setFilterModel(this.props.text);
   };
   render() {
-    // const { setFilterToImage } = this.props;
     return (
       <>
         <Wrapper style={{ transform: this.props.transformState }}>
