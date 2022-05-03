@@ -16,6 +16,7 @@ import {
 } from "../../Redux/Reducers/UiReducers";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { setFilterPropertyInRange } from "../../Redux/Reducers/FiltersReducer";
 
 class Image extends Component {
   handleSwalMessage = () => {
@@ -76,7 +77,7 @@ class Image extends Component {
                   ></i>
                 </Div>
                 <CurrentImage
-                  style={{ filter: this.props.imageFilter }}
+                  style={{ filter: this.props.setFilterProperty }}
                   src={this.props.setImage}
                   alt="edit-picture"
                 />
@@ -101,6 +102,7 @@ const mapStateToProps = (state) => {
     setImage: state.UiReducersCombine.ImageReducer.currentImage,
     showLoading: state.UiReducersCombine.UiReducers.isFetch,
     imageFilter: state.FiltersCombine.FiltersReducer.filter,
+    setFilterProperty: state.FiltersCombine.FiltersReducer.filterProperty
   };
 };
 

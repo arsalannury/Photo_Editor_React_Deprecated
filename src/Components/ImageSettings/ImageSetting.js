@@ -30,11 +30,14 @@ import {
   Button,
 } from "./ImageSettingStyle";
 import { connect } from "react-redux";
+import {setRangeValue} from '../../Redux/Reducers/FiltersReducer';
 
 class ImageSetting extends Component {
   ifFilterTitleWasDefault = () => {
     return this.props.filterTitle === "Default" || this.props.filterTitle === "filterName" ?  true : false;
-
+  }
+  rangeInputHandler = (e) => {
+     this.props.rangeInput(e.target.value)
   }
   render() {
     return (
@@ -48,7 +51,7 @@ class ImageSetting extends Component {
                   : this.props.filterTitle}
               </Parag>
               <FilterRangeWrapper>
-                <FilterRange name="" id="" type="range" disabled={this.ifFilterTitleWasDefault()} max='100' defaultValue='0' />
+                <FilterRange onChange={this.rangeInputHandler} name="" id="" type="range" disabled={this.ifFilterTitleWasDefault()} max='100' defaultValue='0' />
                 <FilterRangeLabelWrapper className="d-flex align-items-center justify-content-between">
                   <FilterMin>min</FilterMin>
                   <FilterMax>max</FilterMax>
@@ -98,5 +101,10 @@ const mapStateToProps = (state) => {
     filterTitle: state.FiltersCombine.FiltersReducer.filterTitle,
   };
 };
+const mapDispatchStateToProps = (dispatch) => {
+  return {
+      rangeInput: (payload) => {dispatch(setRangeValue(payload))}
+  }
+}
 
-export default connect(mapStateToProps)(ImageSetting);
+export default connect(mapStateToProps,mapDispatchStateToProps)(ImageSetting);
