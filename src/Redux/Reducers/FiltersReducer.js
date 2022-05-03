@@ -4,7 +4,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const states = {
     filter : null,
-    filterTitle : 'filterName'
+    filterTitle : 'filterName',
+    filterProperty : 'unset'
 };
 
 
@@ -23,9 +24,19 @@ const FiltersSlice = createSlice({
                 ...state,
                 filterTitle : action.payload
             }
+        },
+        setFilterPropertyInRange : (state,action) => {
+            return {
+                ...state,
+                filterProperty : () => {
+                    if(action.payload === 'Brightness'){
+                        return "brightness(5)"
+                    }
+                }
+            }
         }
     }
 })
 
 export default FiltersSlice.reducer;
-export const {setFilter,setFilterTitle} = FiltersSlice.actions;
+export const {setFilter,setFilterTitle,setFilterPropertyInRange} = FiltersSlice.actions;

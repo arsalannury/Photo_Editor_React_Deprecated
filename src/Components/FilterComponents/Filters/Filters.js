@@ -1,12 +1,13 @@
 import { Component } from "react";
 import { ExampleImg, Wrapper } from "./FiltersStyle";
 import { connect } from "react-redux";
-import { setFilter, setFilterTitle } from "../../../Redux/Reducers/FiltersReducer";
+import { setFilter, setFilterTitle,setFilterPropertyInRange } from "../../../Redux/Reducers/FiltersReducer";
 
 class Filters extends Component {
   filtersHandlerSetting = () => {
     this.props.setFilterToImage(this.props.filter);
-    this.props.setFilterTitle(this.props.text)
+    this.props.setFilterTitle(this.props.text);
+    this.props.setFilterProperty(this.props.text);
   }
   render() {
     // const { setFilterToImage } = this.props;
@@ -44,7 +45,8 @@ const mapStateToProps = (state) => {
 const mapDispatchStateToProps = (dispatch) => {
   return {
     setFilterToImage : (payload) => dispatch(setFilter(payload)),
-    setFilterTitle: (payload) => {dispatch(setFilterTitle(payload))}
+    setFilterTitle: (payload) => {dispatch(setFilterTitle(payload))},
+    setFilterProperty: (payload) => {dispatch(setFilterPropertyInRange(payload))}
   }
 };
 

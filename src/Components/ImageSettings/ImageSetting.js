@@ -33,7 +33,8 @@ import { connect } from "react-redux";
 
 class ImageSetting extends Component {
   ifFilterTitleWasDefault = () => {
-    return this.props.filterTitle === "Default" ?  true : false;
+    return this.props.filterTitle === "Default" || this.props.filterTitle === "filterName" ?  true : false;
+
   }
   render() {
     return (
@@ -47,7 +48,7 @@ class ImageSetting extends Component {
                   : this.props.filterTitle}
               </Parag>
               <FilterRangeWrapper>
-                <FilterRange name="" id="" type="range" disabled={this.ifFilterTitleWasDefault()} value="0" />
+                <FilterRange name="" id="" type="range" disabled={this.ifFilterTitleWasDefault()} max='100' defaultValue='0' />
                 <FilterRangeLabelWrapper className="d-flex align-items-center justify-content-between">
                   <FilterMin>min</FilterMin>
                   <FilterMax>max</FilterMax>
