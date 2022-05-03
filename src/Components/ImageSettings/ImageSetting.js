@@ -51,7 +51,7 @@ class ImageSetting extends Component {
                   : this.props.filterTitle}
               </Parag>
               <FilterRangeWrapper>
-                <FilterRange onChange={this.rangeInputHandler} name="" id="" type="range" disabled={this.ifFilterTitleWasDefault()} max='100' defaultValue='0' />
+                <FilterRange onChange={this.rangeInputHandler} name="" id="" type="range" disabled={this.ifFilterTitleWasDefault()} max='100' value={this.props.rangeInp} />
                 <FilterRangeLabelWrapper className="d-flex align-items-center justify-content-between">
                   <FilterMin>min</FilterMin>
                   <FilterMax>max</FilterMax>
@@ -99,6 +99,7 @@ class ImageSetting extends Component {
 const mapStateToProps = (state) => {
   return {
     filterTitle: state.FiltersCombine.FiltersReducer.filterTitle,
+    rangeInp: state.FiltersCombine.FiltersReducer.rangeInput
   };
 };
 const mapDispatchStateToProps = (dispatch) => {

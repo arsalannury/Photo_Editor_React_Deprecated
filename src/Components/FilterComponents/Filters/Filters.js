@@ -1,14 +1,20 @@
 import { Component } from "react";
 import { ExampleImg, Wrapper } from "./FiltersStyle";
 import { connect } from "react-redux";
-import { setFilter, setFilterTitle,setFilterPropertyInRange } from "../../../Redux/Reducers/FiltersReducer";
+import {
+  setFilter,
+  setFilterTitle,
+  setRangeValue,
+  setFilterModel,
+} from "../../../Redux/Reducers/FiltersReducer";
 
 class Filters extends Component {
   filtersHandlerSetting = () => {
     this.props.setFilterToImage(this.props.filter);
     this.props.setFilterTitle(this.props.text);
-    this.props.setFilterProperty(this.props.text);
-  }
+    this.props.setRangeValue(0);
+    this.props.setFilterModel(this.props.text);
+  };
   render() {
     // const { setFilterToImage } = this.props;
     return (
@@ -22,7 +28,6 @@ class Filters extends Component {
                 src={this.props.setImage}
                 alt="example_img"
                 onClick={this.filtersHandlerSetting}
-                
               />
               {this.props.text}
             </>
@@ -44,10 +49,17 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchStateToProps = (dispatch) => {
   return {
-    setFilterToImage : (payload) => dispatch(setFilter(payload)),
-    setFilterTitle: (payload) => {dispatch(setFilterTitle(payload))},
-    setFilterProperty: (payload) => {dispatch(setFilterPropertyInRange(payload))}
-  }
+    setFilterToImage: (payload) => dispatch(setFilter(payload)),
+    setFilterTitle: (payload) => {
+      dispatch(setFilterTitle(payload));
+    },
+    setRangeValue: (payload) => {
+      dispatch(setRangeValue(payload));
+    },
+    setFilterModel: (payload) => {
+      dispatch(setFilterModel(payload));
+    },
+  };
 };
 
-export default connect(mapStateToProps,mapDispatchStateToProps)(Filters);
+export default connect(mapStateToProps, mapDispatchStateToProps)(Filters);

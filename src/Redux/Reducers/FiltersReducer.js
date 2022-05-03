@@ -1,14 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
 const states = {
   filter: null,
   filterTitle: "filterName",
-  filterProperty: "unset",
+  filterModel: '',
   rangeInput: "0",
 };
-
-
 
 const FiltersSlice = createSlice({
   name: "filtersSlice",
@@ -32,41 +29,21 @@ const FiltersSlice = createSlice({
         rangeInput: action.payload,
       };
     },
-    setFilterPropertyInRange: (state, action) => {
-      if (action.payload === "Brightness") {
+    setFilterModel: (state, action) => {
+      if (action.payload === "Blur") {
         return {
           ...state,
-          filterProperty: `brightness(${state.rangeInput})`,
+          filterModel: "px",
         };
-      } else if (action.payload === "Contrast") {
+      } else if (action.payload === "Hue-Rotate") {
         return {
           ...state,
-          filterProperty: "contrast(3)",
+          filterModel: "deg",
         };
-      } else if (action.payload === "Grayscale") {
+      } else {
         return {
           ...state,
-          filterProperty: "grayscale(1)",
-        };
-      } else if (action.payload === "Opacity") {
-        return {
-          ...state,
-          filterProperty: "opacity(0.5)",
-        };
-      } else if (action.payload === "Saturate") {
-        return {
-          ...state,
-          filterProperty: "saturate(5)",
-        };
-      } else if (action.payload === "Sepia") {
-        return {
-          ...state,
-          filterProperty: "sepia(1)",
-        };
-      } else if (action.payload === "Default") {
-        return {
-          ...state,
-          filterProperty: "unset",
+          filterModel: "",
         };
       }
     },
@@ -74,9 +51,5 @@ const FiltersSlice = createSlice({
 });
 
 export default FiltersSlice.reducer;
-export const {
-  setFilter,
-  setFilterTitle,
-  setFilterPropertyInRange,
-  setRangeValue,
-} = FiltersSlice.actions;
+export const { setFilter, setFilterTitle, setFilterModel, setRangeValue } =
+  FiltersSlice.actions;

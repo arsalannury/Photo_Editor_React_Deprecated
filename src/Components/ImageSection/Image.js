@@ -16,7 +16,6 @@ import {
 } from "../../Redux/Reducers/UiReducers";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { setFilterPropertyInRange } from "../../Redux/Reducers/FiltersReducer";
 
 class Image extends Component {
   handleSwalMessage = () => {
@@ -54,6 +53,16 @@ class Image extends Component {
     }
   };
 
+  componentDidUpdate() {
+    console.log(
+      this.props.filterTitle +
+        "(" +
+        this.props.rangeInp +
+        this.props.filterModel +
+        ")"
+    );
+  }
+
   render() {
     return (
       <>
@@ -77,7 +86,16 @@ class Image extends Component {
                   ></i>
                 </Div>
                 <CurrentImage
-                  style={{ filter: this.props.setFilterProperty }}
+                  style={{
+                    filter:
+                      this.props.filterTitle === "Default"
+                        ? "unset"
+                        : this.props.filterTitle +
+                          "(" +
+                          this.props.rangeInp +
+                          this.props.filterModel +
+                          ")",
+                  }}
                   src={this.props.setImage}
                   alt="edit-picture"
                 />
@@ -102,7 +120,9 @@ const mapStateToProps = (state) => {
     setImage: state.UiReducersCombine.ImageReducer.currentImage,
     showLoading: state.UiReducersCombine.UiReducers.isFetch,
     imageFilter: state.FiltersCombine.FiltersReducer.filter,
-    setFilterProperty: state.FiltersCombine.FiltersReducer.filterProperty
+    filterModel: state.FiltersCombine.FiltersReducer.filterModel,
+    filterTitle: state.FiltersCombine.FiltersReducer.filterTitle,
+    rangeInp: state.FiltersCombine.FiltersReducer.rangeInput,
   };
 };
 
