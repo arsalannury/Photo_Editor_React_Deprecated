@@ -53,15 +53,6 @@ class Image extends Component {
     }
   };
 
-  // componentDidUpdate() {
-  //   console.log(
-  //     this.props.filterTitle +
-  //       "(" +
-  //       this.props.rangeInp +
-  //       this.props.filterModel +
-  //       ")"
-  //   );
-  // }
 
   render() {
     return (
@@ -95,6 +86,9 @@ class Image extends Component {
                           this.props.rangeInp +
                           this.props.filterModel +
                           ")",
+                          width: this.props.width,
+                          height: this.props.height,
+                          borderRadius: this.props.radius
                   }}
                   src={this.props.setImage}
                   alt="edit-picture"
@@ -123,6 +117,9 @@ const mapStateToProps = (state) => {
     filterModel: state.FiltersCombine.FiltersReducer.filterModel,
     filterTitle: state.FiltersCombine.FiltersReducer.filterTitle,
     rangeInp: state.FiltersCombine.FiltersReducer.rangeInput,
+    width: state.FiltersCombine.FiltersReducer.imageWidth,
+    height: state.FiltersCombine.FiltersReducer.imageHeight,
+    radius: state.FiltersCombine.FiltersReducer.imageRadius,
   };
 };
 

@@ -6,6 +6,9 @@ const states = {
   filterModel: "",
   rangeInput: "0",
   maxRangeInput: "100",
+  imageWidth: "unset",
+  imageHeight: "unset",
+  imageRadius: "unset",
 };
 
 const FiltersSlice = createSlice({
@@ -56,9 +59,34 @@ const FiltersSlice = createSlice({
         };
       }
     },
+    setWidth: (state, action) => {
+      return {
+        ...state,
+        imageWidth: action.payload === "" ? "unset" : action.payload + "px",
+      };
+    },
+    setHeight: (state, action) => {
+      return {
+        ...state,
+        imageHeight: action.payload === "" ? "unset" : action.payload + "px",
+      };
+    },
+    setRadius: (state, action) => {
+      return {
+        ...state,
+        imageRadius: action.payload === "" ? "unset" : action.payload + "px",
+      };
+    },
   },
 });
 
 export default FiltersSlice.reducer;
-export const { setFilter, setFilterTitle, setFilterModel, setRangeValue } =
-  FiltersSlice.actions;
+export const {
+  setFilter,
+  setFilterTitle,
+  setFilterModel,
+  setRangeValue,
+  setHeight,
+  setRadius,
+  setWidth,
+} = FiltersSlice.actions;

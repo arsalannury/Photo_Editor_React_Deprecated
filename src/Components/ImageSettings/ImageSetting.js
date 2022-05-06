@@ -30,15 +30,25 @@ import {
   Button,
 } from "./ImageSettingStyle";
 import { connect } from "react-redux";
-import {setRangeValue} from '../../Redux/Reducers/FiltersReducer';
+import {
+  setRangeValue,
+  setWidth,
+  setHeight,
+  setRadius,
+} from "../../Redux/Reducers/FiltersReducer";
 
 class ImageSetting extends Component {
   ifFilterTitleWasDefault = () => {
-    return this.props.filterTitle === "Default" || this.props.filterTitle === "filterName" ?  true : false;
-  }
+    return this.props.filterTitle === "Default" ||
+      this.props.filterTitle === "filterName"
+      ? true
+      : false;
+  };
   rangeInputHandler = (e) => {
-     this.props.rangeInput(e.target.value)
-  }
+    this.props.rangeInput(e.target.value);
+  };
+
+
   render() {
     return (
       <>
@@ -51,7 +61,16 @@ class ImageSetting extends Component {
                   : this.props.filterTitle}
               </Parag>
               <FilterRangeWrapper>
-                <FilterRange onChange={this.rangeInputHandler} name="" id="" type="range" disabled={this.ifFilterTitleWasDefault()} max={this.props.maxRangeInp} step={0.1} value={this.props.rangeInp} />
+                <FilterRange
+                  onChange={this.rangeInputHandler}
+                  name=""
+                  id=""
+                  type="range"
+                  disabled={this.ifFilterTitleWasDefault()}
+                  max={this.props.maxRangeInp}
+                  step={0.1}
+                  value={this.props.rangeInp}
+                />
                 <FilterRangeLabelWrapper className="d-flex align-items-center justify-content-between">
                   <FilterMin>min</FilterMin>
                   <FilterMax>max</FilterMax>
@@ -64,21 +83,45 @@ class ImageSetting extends Component {
                 <Sizes className="d-flex align-items-center justify-content-between flex-column">
                   <WidthWrapper>
                     <WidthSpan>W</WidthSpan>
-                    <WidthInput type="text" disabled={this.ifFilterTitleWasDefault()} />
+                    <WidthInput
+                      type="text"
+                      onChange={(e) => {
+                        this.props.setWidth(e.target.value);
+                      }}
+                      maxLength="3"
+                      disabled={this.ifFilterTitleWasDefault()}
+                    />
                   </WidthWrapper>
                   <HeightWrapper>
                     <HeightSpan>H</HeightSpan>
-                    <HeightInput type="text" disabled={this.ifFilterTitleWasDefault()} />
+                    <HeightInput
+                      type="text"
+                      onChange={(e) => {
+                        this.props.setHeight(e.target.value);
+                      }}
+                      maxLength="3"
+                      disabled={this.ifFilterTitleWasDefault()}
+                    />
                   </HeightWrapper>
                 </Sizes>
                 <Styles className="d-flex align-items-center justify-content-between flex-column">
                   <OpacityWrapper>
                     <OpacitySpan>O</OpacitySpan>
-                    <OpacityInput type={"text"} disabled={this.ifFilterTitleWasDefault()} />
+                    <OpacityInput
+                      type={"text"}
+                      disabled={this.ifFilterTitleWasDefault()}
+                    />
                   </OpacityWrapper>
                   <RadiusWrapper>
                     <RadiusSpan>R</RadiusSpan>
-                    <RadiusInput type={"text"} disabled={this.ifFilterTitleWasDefault()} />
+                    <RadiusInput
+                      type={"text"}
+                      onChange={(e) => {
+                        this.props.setRadius(e.target.value);
+                      }}
+                      maxLength="2"
+                      disabled={this.ifFilterTitleWasDefault()}
+                    />
                   </RadiusWrapper>
                 </Styles>
               </SizeSettingContent>
@@ -100,13 +143,24 @@ const mapStateToProps = (state) => {
   return {
     filterTitle: state.FiltersCombine.FiltersReducer.filterTitle,
     rangeInp: state.FiltersCombine.FiltersReducer.rangeInput,
-    maxRangeInp: state.FiltersCombine.FiltersReducer.maxRangeInput
+    maxRangeInp: state.FiltersCombine.FiltersReducer.maxRangeInput,
   };
 };
 const mapDispatchStateToProps = (dispatch) => {
   return {
-      rangeInput: (payload) => {dispatch(setRangeValue(payload))}
-  }
-}
+    rangeInput: (payload) => {
+      dispatch(setRangeValue(payload));
+    },
+    setWidth: (payload) => {
+      dispatch(setWidth(payload));
+    },
+    setHeight: (payload) => {
+      dispatch(setHeight(payload));
+    },
+    setRadius: (payload) => {
+      dispatch(setRadius(payload));
+    },
+  };
+};
 
-export default connect(mapStateToProps,mapDispatchStateToProps)(ImageSetting);
+export default connect(mapStateToProps, mapDispatchStateToProps)(ImageSetting);
