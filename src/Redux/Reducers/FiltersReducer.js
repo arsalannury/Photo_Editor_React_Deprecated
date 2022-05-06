@@ -3,8 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const states = {
   filter: null,
   filterTitle: "filterName",
-  filterModel: '',
+  filterModel: "",
   rangeInput: "0",
+  maxRangeInput: "100",
 };
 
 const FiltersSlice = createSlice({
@@ -34,16 +35,24 @@ const FiltersSlice = createSlice({
         return {
           ...state,
           filterModel: "px",
+          maxRangeInput: "100",
         };
       } else if (action.payload === "Hue-Rotate") {
         return {
           ...state,
           filterModel: "deg",
+          maxRangeInput: "100",
         };
       } else {
         return {
           ...state,
           filterModel: "",
+          maxRangeInput:
+            action.payload === "Sepia" ||
+            action.payload === "Opacity" ||
+            action.payload === "Grayscale"
+              ? "1"
+              : "5",
         };
       }
     },
