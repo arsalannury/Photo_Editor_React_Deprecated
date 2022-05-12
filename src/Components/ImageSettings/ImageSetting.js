@@ -50,6 +50,11 @@ class ImageSetting extends Component {
     this.props.rangeInput(e.target.value);
   };
 
+  filterLess = () => {
+   return this.props.rangeInp === "0" ? true : false;
+   // fixed it please this function not work currectly
+  }
+
   render() {
     return (
       <>
@@ -136,7 +141,10 @@ class ImageSetting extends Component {
                   </DownlaodLink>
                 </Button>
               ) : (
-                <Button onClick={()=>{this.props.showDownloadBtn(true)}}>
+                <Button 
+                onClick={()=>{this.props.showDownloadBtn(true)}}
+                disabled={this.filterLess()}
+                >
                   <i class="bi bi-check2"></i>
                 </Button>
               )}
