@@ -14,6 +14,7 @@ import {
   showLoading,
   hideFilterSection,
 } from "../../Redux/Reducers/UiReducers";
+import { setFilterTitle,setRangeValue } from "../../Redux/Reducers/FiltersReducer";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -48,6 +49,8 @@ class Image extends Component {
       this.props.filterDisplay();
       localStorage.removeItem("imageDatabaseName");
       this.handleSwalMessage();
+      this.props.applyFilterTitle("filterName");
+      this.props.rangeInput("0");
     } catch (error) {
       console.log(error);
     }
@@ -133,6 +136,12 @@ const mapDispatchStateToProps = (dispatch) => {
     },
     filterDisplay: () => {
       dispatch(hideFilterSection());
+    },
+    applyFilterTitle: (payload) => {
+       dispatch(setFilterTitle(payload))
+    },
+    rangeInput: (payload) => {
+      dispatch(setRangeValue(payload));
     },
   };
 };

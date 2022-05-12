@@ -6,7 +6,7 @@ const states = {
   filterModel: "",
   rangeInput: "0",
   maxRangeInput: "100",
-  imageWidth: "unset",
+  imageWidth: "unset", 
   imageHeight: "unset",
   imageRadius: "unset",
 };

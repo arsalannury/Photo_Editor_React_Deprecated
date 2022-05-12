@@ -89,7 +89,7 @@ class ImageSetting extends Component {
                         this.props.setWidth(e.target.value);
                       }}
                       maxLength="3"
-                      disabled={this.ifFilterTitleWasDefault()}
+                      // disabled={this.ifFilterTitleWasDefault()}
                     />
                   </WidthWrapper>
                   <HeightWrapper>
@@ -100,7 +100,7 @@ class ImageSetting extends Component {
                         this.props.setHeight(e.target.value);
                       }}
                       maxLength="3"
-                      disabled={this.ifFilterTitleWasDefault()}
+                      // disabled={this.ifFilterTitleWasDefault()}
                     />
                   </HeightWrapper>
                 </Sizes>
@@ -109,7 +109,7 @@ class ImageSetting extends Component {
                     <OpacitySpan>O</OpacitySpan>
                     <OpacityInput
                       type={"text"}
-                      disabled={this.ifFilterTitleWasDefault()}
+                      // disabled={this.ifFilterTitleWasDefault()}
                     />
                   </OpacityWrapper>
                   <RadiusWrapper>
@@ -120,7 +120,7 @@ class ImageSetting extends Component {
                         this.props.setRadius(e.target.value);
                       }}
                       maxLength="2"
-                      disabled={this.ifFilterTitleWasDefault()}
+                      // disabled={this.ifFilterTitleWasDefault()}
                     />
                   </RadiusWrapper>
                 </Styles>
@@ -129,8 +129,9 @@ class ImageSetting extends Component {
 
             <Actions className="w-75 d-flex align-items-center justify-content-center">
               <Button>
-                <i class="bi bi-download"></i>
+                <i class="bi bi-check2"></i>
               </Button>
+              <Button style={{fontSize:'.7em'}}><a href="https://react-photo-editor-dd3e0-default-rtdb.firebaseio.com/Image/-N1rC7Ja6tzs2QQjMWsP/image" download>Downlaod</a></Button>
             </Actions>
           </Content>
         </Container>

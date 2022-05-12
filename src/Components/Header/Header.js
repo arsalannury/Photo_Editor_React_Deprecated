@@ -95,7 +95,6 @@ class Header extends PureComponent {
           data
         );
         try {
-          // console.log(result)
           this.getImage(result.data.name);
           const toLocal = localStorage.setItem(
             "imageDatabaseName",
