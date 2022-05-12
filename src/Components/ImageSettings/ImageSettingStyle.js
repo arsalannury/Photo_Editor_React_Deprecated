@@ -93,3 +93,12 @@ export const Button = styled.button`
     }
   }
 `;
+
+export const DownlaodLink = styled.a`
+text-decoration: none;
+color: #000;
+&:hover {
+  text-decoration: none;
+  color: #000;
+}
+`

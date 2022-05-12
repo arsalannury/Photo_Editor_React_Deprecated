@@ -28,6 +28,7 @@ import {
   RadiusSpan,
   RadiusInput,
   Button,
+  DownlaodLink
 } from "./ImageSettingStyle";
 import { connect } from "react-redux";
 import {
@@ -36,6 +37,7 @@ import {
   setHeight,
   setRadius,
 } from "../../Redux/Reducers/FiltersReducer";
+import { showDownloadBtn } from "../../Redux/Reducers/UiReducers";
 
 class ImageSetting extends Component {
   ifFilterTitleWasDefault = () => {
@@ -47,7 +49,6 @@ class ImageSetting extends Component {
   rangeInputHandler = (e) => {
     this.props.rangeInput(e.target.value);
   };
-
 
   render() {
     return (
@@ -128,10 +129,17 @@ class ImageSetting extends Component {
             </SizeSetting>
 
             <Actions className="w-75 d-flex align-items-center justify-content-center">
-              <Button>
-                <i class="bi bi-check2"></i>
-              </Button>
-              <Button style={{fontSize:'.7em'}}><a href="https://react-photo-editor-dd3e0-default-rtdb.firebaseio.com/Image/-N1rC7Ja6tzs2QQjMWsP/image" download>Downlaod</a></Button>
+              {this.props.showDownload ? (
+                <Button style={{ fontSize: ".7em" }}>
+                  <DownlaodLink href={this.props.setImage} download>
+                    Downlaod
+                  </DownlaodLink>
+                </Button>
+              ) : (
+                <Button onClick={()=>{this.props.showDownloadBtn(true)}}>
+                  <i class="bi bi-check2"></i>
+                </Button>
+              )}
             </Actions>
           </Content>
         </Container>
@@ -143,6 +151,8 @@ class ImageSetting extends Component {
 const mapStateToProps = (state) => {
   return {
     filterTitle: state.FiltersCombine.FiltersReducer.filterTitle,
+    setImage: state.UiReducersCombine.ImageReducer.currentImage,
+    showDownload: state.UiReducersCombine.UiReducers.showDownloadBtn,
     rangeInp: state.FiltersCombine.FiltersReducer.rangeInput,
     maxRangeInp: state.FiltersCombine.FiltersReducer.maxRangeInput,
   };
@@ -160,6 +170,9 @@ const mapDispatchStateToProps = (dispatch) => {
     },
     setRadius: (payload) => {
       dispatch(setRadius(payload));
+    },
+    showDownloadBtn: (payload) => {
+      dispatch(showDownloadBtn(payload));
     },
   };
 };

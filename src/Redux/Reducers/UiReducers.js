@@ -4,7 +4,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const states = {
     transform : 'translateY(400px)',
     overflowFilterSection : 'hidden',
-    isFetch : false
+    isFetch : false,
+    showDownloadBtn : false
 }
 
 const UiReducersSlice = createSlice({
@@ -35,9 +36,15 @@ const UiReducersSlice = createSlice({
                transform : 'translateY(400px)',
                overflowFilterSection: 'hidden'
            }
+       },
+       showDownloadBtn: (state,action) => {
+           return {
+               ...state,
+               showDownloadBtn: action.payload
+           }
        }
     }
 })
 
 export default UiReducersSlice.reducer;
-export const {filterShow,overflowShow,showLoading,hideFilterSection} = UiReducersSlice.actions;
+export const {filterShow,overflowShow,showLoading,hideFilterSection,showDownloadBtn} = UiReducersSlice.actions;

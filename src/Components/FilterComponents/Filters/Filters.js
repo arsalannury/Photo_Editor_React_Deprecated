@@ -7,6 +7,8 @@ import {
   setRangeValue,
   setFilterModel,
 } from "../../../Redux/Reducers/FiltersReducer";
+import {showDownloadBtn} from '../../../Redux/Reducers/UiReducers'
+
 
 class Filters extends Component {
   filtersHandlerSetting = () => {
@@ -14,6 +16,7 @@ class Filters extends Component {
     this.props.setFilterTitle(this.props.text);
     this.props.setRangeValue(0);
     this.props.setFilterModel(this.props.text);
+    this.props.showDownloadBtn(false);
   };
   render() {
     return (
@@ -57,6 +60,9 @@ const mapDispatchStateToProps = (dispatch) => {
     },
     setFilterModel: (payload) => {
       dispatch(setFilterModel(payload));
+    },
+    showDownloadBtn: (payload) => {
+      dispatch(showDownloadBtn(payload));
     },
   };
 };
