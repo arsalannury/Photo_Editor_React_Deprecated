@@ -33,8 +33,8 @@ class Image extends Component {
     });
 
     Toast.fire({
-      icon: "info",
-      title: "Deleted is successfully",
+      icon: "success",
+      title: "Deleted",
     });
   };
 

@@ -28,7 +28,7 @@ import {
   RadiusSpan,
   RadiusInput,
   Button,
-  DownlaodLink
+  DownlaodLink,
 } from "./ImageSettingStyle";
 import { connect } from "react-redux";
 import {
@@ -50,10 +50,6 @@ class ImageSetting extends Component {
     this.props.rangeInput(e.target.value);
   };
 
-  filterLess = () => {
-   return this.props.rangeInp === "0" ? true : false;
-   // fixed it please this function not work currectly
-  }
 
   render() {
     return (
@@ -134,17 +130,19 @@ class ImageSetting extends Component {
             </SizeSetting>
 
             <Actions className="w-75 d-flex align-items-center justify-content-center">
-              {this.props.showDownload ? (
+              {this.props.showDownload &&
+              this.props.filterTitle !== "Default" &&
+              this.props.filterTitle !== "filterName" ? (
                 <Button style={{ fontSize: ".7em" }}>
                   <DownlaodLink href={this.props.setImage} download>
-                    Downlaod
+                    Download
                   </DownlaodLink>
                 </Button>
               ) : (
-                <Button 
-                onClick={()=>{this.props.showDownloadBtn(true)}}
-                disabled={this.filterLess()}
-                >
+                <Button
+                  onClick={() => {
+                    this.props.showDownloadBtn(true);
+                  }}>
                   <i class="bi bi-check2"></i>
                 </Button>
               )}

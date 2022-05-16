@@ -21,7 +21,7 @@ class Header extends PureComponent {
   ifImageWasEmptyMessage = () => {
     let timerInterval;
     Swal.fire({
-      title: "Choose an image!",
+      title: "There isn't image!",
       html: "I will close in <b></b> milliseconds.",
       timer: 2000,
       timerProgressBar: true,
