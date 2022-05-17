@@ -16,12 +16,6 @@ const imageSlice = createSlice({
                 currentImage :  action.payload
             }
         },
-        imageChanged : (state,action) => {
-            return {
-                ...state,
-                isChange : state.isChange = true
-            }
-        }
     }
 })
 

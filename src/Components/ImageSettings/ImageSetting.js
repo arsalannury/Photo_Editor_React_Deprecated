@@ -38,6 +38,7 @@ import {
   setRadius,
 } from "../../Redux/Reducers/FiltersReducer";
 import { showDownloadBtn } from "../../Redux/Reducers/UiReducers";
+import axios from "axios";
 
 class ImageSetting extends Component {
   ifFilterTitleWasDefault = () => {
@@ -50,6 +51,21 @@ class ImageSetting extends Component {
     this.props.rangeInput(e.target.value);
   };
 
+  postFinalyImageToDatabase = async () => {
+    this.props.showDownloadBtn(true);
+    if(this.props.filterTitle === "Default" || this.props.filterTitle === "filterName") return;
+    const currentImage = {
+      data: this.props.setImage,
+    };
+    try {
+      const response = await axios.post(
+        "https://react-photo-editor-dd3e0-default-rtdb.firebaseio.com/FinalyImages.json",
+        currentImage
+      );
+    } catch (error) {
+      console.log(error,'your request chatched');
+    }
+  };
 
   render() {
     return (
@@ -141,8 +157,9 @@ class ImageSetting extends Component {
               ) : (
                 <Button
                   onClick={() => {
-                    this.props.showDownloadBtn(true);
-                  }}>
+                    this.postFinalyImageToDatabase()
+                  }}
+                >
                   <i class="bi bi-check2"></i>
                 </Button>
               )}
