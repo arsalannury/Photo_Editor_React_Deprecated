@@ -11,6 +11,9 @@ width: 50%;
 @media screen and (max-width:767px) {
   width : 100%;
 }
+@media screen and (min-width:768px) and (max-width:1330px){
+  width: 90%;
+}
 `;
 export const Filters = styled.div`
   padding: 20px;

@@ -19,6 +19,9 @@ min-height: 700px;
 export const CurrentImage = styled.img`
 max-height: 80%;
 max-width: 100%;
+@media screen and (max-width:605px) {
+  max-width: 95%;
+}
 `
 export const LoadingImage = styled.div`
 display: inline-block;
