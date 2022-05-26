@@ -1,9 +1,16 @@
 import styled from "styled-components";
 
-export const Container = styled.div``;
+export const Container = styled.div`
+@media screen and (max-width:767px) {
+margin-bottom : 10px;
+}
+`;
 export const Content = styled.div`
 padding: 70px 0;
 width: 50%;
+@media screen and (max-width:767px) {
+  width : 100%;
+}
 `;
 export const Filters = styled.div`
   padding: 20px;
@@ -17,6 +24,9 @@ export const Parag = styled.p`
 export const FilterRangeWrapper = styled.div``;
 export const FilterRangeLabelWrapper = styled.div`
   width: 200px;
+  @media screen and (max-width:349px) {
+    width:160px;
+  }
 `;
 export const FilterMin = styled.span`
   color: #ccc;
@@ -41,6 +51,9 @@ export const FilterRange = styled.input`
   }
   &:hover {
     opacity: 1;
+  }
+  @media screen and (max-width:349px) {
+    width:160px;
   }
 `;
 
